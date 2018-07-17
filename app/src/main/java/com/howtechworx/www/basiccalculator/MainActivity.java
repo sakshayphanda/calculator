@@ -57,18 +57,16 @@ public class MainActivity extends AppCompatActivity {
                 {
                     inputNo.setText(String.format("%s)", inputNo.getText()));
                 }
-             */   if(i==0) {
-                 if(inputNo.getText().toString().isEmpty()&&finalRes.getText().toString().isEmpty())
-                 {
-                     Toast.makeText(MainActivity.this, "Input something", Toast.LENGTH_SHORT).show();
-                 }
-                   else if (finalRes.getText().toString().isEmpty()) {
+             */
+                if (i == 0) {
+                    if (inputNo.getText().toString().isEmpty() && finalRes.getText().toString().isEmpty()) {
+                        Toast.makeText(MainActivity.this, "Input something", Toast.LENGTH_SHORT).show();
+                    } else if (finalRes.getText().toString().isEmpty()) {
                         String num = inputNo.getText().toString();
                         float no = Float.parseFloat(num);
                         pi = (float) (no * Math.PI);
                         finalRes.setText(String.format(Locale.getDefault(), "%.2f", pi));
-                    }
-                    else {
+                    } else {
                         String num = finalRes.getText().toString();
                         float no = Float.parseFloat(num);
                         pi = (float) (no * Math.PI);
@@ -173,8 +171,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String operationSym = operation.getText().toString();
 
-                if(inputNo.getText().toString().isEmpty()&&finalRes.getText().toString().isEmpty() || inputNo.getText().toString().equals("."))
-                {
+                if (inputNo.getText().toString().isEmpty() && finalRes.getText().toString().isEmpty() || inputNo.getText().toString().equals(".")) {
                     Toast.makeText(MainActivity.this, "Input is missing", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -197,7 +194,6 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 }
-
                 if (operationSym.equals("-")) {
                     if (!first.getText().toString().isEmpty() && inputNo.getText().toString().isEmpty() && !finalRes.getText().toString().isEmpty()) {
                         finalRes.setText(first.getText().toString());
@@ -261,11 +257,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 lastDot = false;
-                if(inputNo.getText().toString().isEmpty()&&finalRes.getText().toString().isEmpty())
-                {
+                if (inputNo.getText().toString().isEmpty() && finalRes.getText().toString().isEmpty()) {
                     Toast.makeText(MainActivity.this, "Input something", Toast.LENGTH_SHORT).show();
-                }
-                else if ((!finalRes.getText().toString().isEmpty() && !first.getText().toString().isEmpty() && !inputNo.getText().toString().isEmpty())) {
+                } else if ((!finalRes.getText().toString().isEmpty() && !first.getText().toString().isEmpty() && !inputNo.getText().toString().isEmpty())) {
                     first.setText(finalRes.getText().toString());
                     String no_one = first.getText().toString();
                     String no_two = inputNo.getText().toString();
@@ -304,11 +298,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 lastDot = false;
-                if(inputNo.getText().toString().isEmpty()&&finalRes.getText().toString().isEmpty())
-                {
+                if (inputNo.getText().toString().isEmpty() && finalRes.getText().toString().isEmpty()) {
                     Toast.makeText(MainActivity.this, "Input something", Toast.LENGTH_SHORT).show();
-                }
-                else if ((!finalRes.getText().toString().isEmpty() && !first.getText().toString().isEmpty() && !inputNo.getText().toString().isEmpty())) {
+                } else if ((!finalRes.getText().toString().isEmpty() && !first.getText().toString().isEmpty() &&
+                        !inputNo.getText().toString().isEmpty())) {
                     first.setText(finalRes.getText().toString());
                     String no_one = first.getText().toString();
                     String no_two = inputNo.getText().toString();
@@ -349,11 +342,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 lastDot = false;
-                if(inputNo.getText().toString().isEmpty()&&finalRes.getText().toString().isEmpty())
-                {
+                if (inputNo.getText().toString().isEmpty() && finalRes.getText().toString().isEmpty()) {
                     Toast.makeText(MainActivity.this, "Input something", Toast.LENGTH_SHORT).show();
-                }
-                else if ((!finalRes.getText().toString().isEmpty() && !first.getText().toString().isEmpty() && !inputNo.getText().toString().isEmpty())) {
+                } else if ((!finalRes.getText().toString().isEmpty() && !first.getText().toString().isEmpty() && !inputNo.getText().toString().isEmpty())) {
                     first.setText(finalRes.getText().toString());
                     String no_one = first.getText().toString();
                     String no_two = inputNo.getText().toString();
@@ -394,11 +385,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 lastDot = false;
-                if(inputNo.getText().toString().isEmpty()&&finalRes.getText().toString().isEmpty())
-                {
+                if (inputNo.getText().toString().isEmpty() && finalRes.getText().toString().isEmpty()) {
                     Toast.makeText(MainActivity.this, "Input something", Toast.LENGTH_SHORT).show();
-                }
-                else if ((!finalRes.getText().toString().isEmpty() && !first.getText().toString().isEmpty() && !inputNo.getText().toString().isEmpty())) {
+                } else if ((!finalRes.getText().toString().isEmpty() && !first.getText().toString().isEmpty() && !inputNo.getText().toString().isEmpty())) {
                     first.setText(finalRes.getText().toString());
                     String no_one = first.getText().toString();
                     String no_two = inputNo.getText().toString();
@@ -543,11 +532,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void cubeRoot(View view) {
         {
-            if(inputNo.getText().toString().isEmpty()&&finalRes.getText().toString().isEmpty())
-            {
+            if (inputNo.getText().toString().isEmpty() && finalRes.getText().toString().isEmpty()) {
                 Toast.makeText(MainActivity.this, "Input something", Toast.LENGTH_SHORT).show();
-            }
-            else if (finalRes.getText().toString().isEmpty()) {
+            } else if (finalRes.getText().toString().isEmpty()) {
                 operation.setText("");
                 lastDot = false;
                 String a = inputNo.getText().toString();
