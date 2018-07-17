@@ -84,6 +84,7 @@
             android:focusable="false"
             android:gravity="right|bottom"
             android:hint=""
+
             android:inputType="none"
             android:textIsSelectable="false"
             android:textSize="40sp" />
@@ -104,6 +105,8 @@
                 android:background="@color/colorPrimary"
                 android:onClick="add"
                 android:text="+"
+                android:foreground="?android:attr/selectableItemBackground"
+
                 android:textColor="@android:color/white"
                 android:textSize="30sp" />
 
@@ -114,6 +117,8 @@
                 android:layout_weight="1"
                 android:background="@color/colorPrimary"
                 android:onClick="sub"
+                android:foreground="?android:attr/selectableItemBackground"
+
                 android:text="-"
                 android:textColor="@android:color/white"
                 android:textSize="38sp" />
@@ -126,6 +131,8 @@
                 android:background="@color/colorPrimary"
                 android:onClick="mul"
                 android:text="x"
+                android:foreground="?android:attr/selectableItemBackground"
+
                 android:textColor="@android:color/white"
                 android:textSize="18sp" />
 
@@ -136,6 +143,8 @@
                 android:layout_weight="1"
                 android:background="@color/colorPrimary"
                 android:onClick="div"
+                android:foreground="?android:attr/selectableItemBackground"
+
                 android:text="÷"
                 android:textColor="@android:color/white"
                 android:textSize="25sp" />
@@ -160,6 +169,8 @@
                 android:onClick="number"
                 android:text="7"
                 android:textColor="@android:color/white"
+                android:foreground="?android:attr/selectableItemBackground"
+
                 android:textSize="30sp" />
 
             <Button
@@ -169,6 +180,8 @@
                 android:layout_weight="1"
                 android:background="@color/colorPrimaryDark"
                 android:onClick="number"
+                android:foreground="?android:attr/selectableItemBackground"
+
                 android:text="8"
                 android:textColor="@android:color/white"
                 android:textSize="30sp" />
@@ -176,6 +189,7 @@
             <Button
                 android:id="@+id/button9"
                 android:layout_width="0dp"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@color/colorPrimaryDark"
@@ -202,6 +216,8 @@
                 android:background="#000"
                 android:gravity="center"
                 android:onClick="back"
+                android:foreground="?android:attr/selectableItemBackground"
+
                 android:src="@drawable/ic_backspace_black"
                 android:textSize="25sp" />
         </LinearLayout>
@@ -222,6 +238,8 @@
                 android:background="@color/colorPrimaryDark"
                 android:onClick="number"
                 android:text="4"
+                android:foreground="?android:attr/selectableItemBackground"
+
                 android:textColor="@android:color/white"
                 android:textSize="30sp" />
 
@@ -231,17 +249,22 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:foreground="?android:attr/selectableItemBackground"
+
                 android:background="@color/colorPrimaryDark"
                 android:onClick="number"
                 android:text="5"
                 android:textColor="@android:color/white"
                 android:textSize="30sp" />
 
+
             <Button
                 android:id="@+id/button6"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:foreground="?android:attr/selectableItemBackground"
+
                 android:background="@color/colorPrimaryDark"
                 android:onClick="number"
                 android:text="6"
@@ -250,18 +273,15 @@
 
 
             <Button
-                android:id="@+id/buttoneql"
+                android:id="@+id/buttonC"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="bottom"
                 android:layout_weight="1"
                 android:background="#000"
-                android:gravity="center_horizontal"
-                android:text="="
-                android:textAlignment="gravity"
+                android:onClick="clear"
+                android:text="AC"
                 android:textColor="@android:color/holo_orange_dark"
-                android:textSize="60sp" />
-
+                android:textSize="30sp" />
 
         </LinearLayout>
 
@@ -281,6 +301,8 @@
                 android:background="@color/colorPrimaryDark"
                 android:onClick="number"
                 android:text="1"
+                android:foreground="?android:attr/selectableItemBackground"
+
                 android:textColor="@android:color/white"
                 android:textSize="30sp" />
 
@@ -291,6 +313,8 @@
                 android:layout_weight="1"
                 android:background="@color/colorPrimaryDark"
                 android:onClick="number"
+                android:foreground="?android:attr/selectableItemBackground"
+
                 android:text="2"
                 android:textColor="@android:color/white"
                 android:textSize="30sp" />
@@ -300,6 +324,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:foreground="?android:attr/selectableItemBackground"
+
                 android:background="@color/colorPrimaryDark"
                 android:onClick="number"
                 android:text="3"
@@ -312,6 +338,8 @@
                 android:layout_weight="1"
                 android:background="#333333"
                 android:onClick="squ"
+                android:foreground="?android:attr/selectableItemBackground"
+
                 android:text="x²"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white"
@@ -365,15 +393,21 @@
                 android:textSize="30sp" />
 
             <Button
-                android:id="@+id/buttonC"
+                android:id="@+id/buttoneql"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_gravity="bottom"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="="
+                android:textAlignment="gravity"
                 android:background="@color/colorPrimaryDark"
-                android:onClick="clear"
-                android:text="C"
                 android:textColor="@android:color/holo_orange_dark"
-                android:textSize="30sp" />
+                android:textSize="60sp" />
+
+
+
 
             <Button
                 android:id="@+id/cube"
@@ -389,12 +423,13 @@
         </LinearLayout>
     </LinearLayout>
 
-    <ListView
+    <GridView
         android:id="@+id/drawer_list"
         android:layout_width="match_parent"
-        android:layout_height="318dp"
+        android:layout_height="350dp"
         android:layout_gravity="end|bottom"
-        android:background="#333333"
+        android:background="#efecec"
+        android:numColumns="2"
         android:choiceMode="singleChoice"
         android:divider="@android:color/transparent"
         android:dividerHeight="0dp" />
