@@ -191,8 +191,7 @@ public class MainActivity extends AppCompatActivity {
                         // first.setText(String.format("%.2f", add));
                         inputNo.setText("");
                         operation.setText("");
-
-                    }
+                        }
                 }
                 if (operationSym.equals("-")) {
                     if (!first.getText().toString().isEmpty() && inputNo.getText().toString().isEmpty() && !finalRes.getText().toString().isEmpty()) {
