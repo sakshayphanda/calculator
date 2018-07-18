@@ -4,31 +4,30 @@ import android.graphics.Typeface;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ListView;
+import android.widget.GridView;
+import android.widget.Toast;
 
 import com.github.amlcurran.showcaseview.OnShowcaseEventListener;
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
 
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final long SHOWCASE_ID = 1;
-    private float mValueOne, mValueTwo, mValueThree;
-    boolean mAddition, mSubtract, mMultiplication, mDivision;
+    private float mValueOne, mValueThree;
     private float add, sub, div, mul;
     private EditText finalRes, inputNo, first, operation;
-    private float result;
     private boolean lastDot;
-    private ListView drawer_list;
-    private String number;
-    private int res;
+    private GridView drawer_list;
     private Button button0, button1, button2, button3, button4, button5, button6, button7, button8, button9;
     private Button buttonEqual;
     private Button button10;
@@ -36,8 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private Button buttonSub;
     private Button buttonMul;
     private Button buttonDivision;
-    private String display;
-    private Button back;
+    private float pi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,32 +43,53 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initUI();
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1
-                , new String[]{"dummy", "dummy", "dummy", "dummy", "dummy", "dummy"});
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), R.layout.list_item
+                , new String[]{"π"});
         drawer_list.setAdapter(adapter);
-
-        showShowCaseView();
-    /*    back.setOnLongClickListener(new View.OnLongClickListener() {
+        drawer_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public boolean onLongClick(View v) {
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+             /*   if(i==0)
+                {
+                    inputNo.setText(String.format("%s(", inputNo.getText()));
+                }
+                if(i==1)
+                {
+                    inputNo.setText(String.format("%s)", inputNo.getText()));
+                }
+             */
+                if (i == 0) {
+                    if (inputNo.getText().toString().isEmpty() && finalRes.getText().toString().isEmpty()) {
+                        Toast.makeText(MainActivity.this, "Input something", Toast.LENGTH_SHORT).show();
+                    } else if (finalRes.getText().toString().isEmpty()) {
+                        String num = inputNo.getText().toString();
+                        float no = Float.parseFloat(num);
+                        pi = (float) (no * Math.PI);
+                        finalRes.setText(String.format(Locale.getDefault(), "%.2f", pi));
+                    } else {
+                        String num = finalRes.getText().toString();
+                        float no = Float.parseFloat(num);
+                        pi = (float) (no * Math.PI);
+                        finalRes.setText(String.format(Locale.getDefault(), "%.2f", pi));
 
-                    inputNo.getText().clear();
-                return true;
+                    }
+                }
             }
         });
-*/
+
+        showShowCaseView();
 
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                inputNo.setText(inputNo.getText() + "1");
+                inputNo.setText(String.format("%s1", inputNo.getText()));
             }
         });
 
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                inputNo.setText(inputNo.getText() + "2");
+                inputNo.setText(String.format("%s2", inputNo.getText()));
 
             }
         });
@@ -78,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                inputNo.setText(inputNo.getText() + "3");
+                inputNo.setText(String.format("%s3", inputNo.getText()));
 
             }
         });
@@ -86,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
         button4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                inputNo.setText(inputNo.getText() + "4");
+                inputNo.setText(String.format("%s4", inputNo.getText()));
 
             }
         });
@@ -94,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
         button5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                inputNo.setText(inputNo.getText() + "5");
+                inputNo.setText(String.format("%s5", inputNo.getText()));
 
             }
         });
@@ -103,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
         button6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                inputNo.setText(inputNo.getText() + "6");
+                inputNo.setText(String.format("%s6", inputNo.getText()));
 
             }
         });
@@ -111,15 +130,14 @@ public class MainActivity extends AppCompatActivity {
         button7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                inputNo.setText(inputNo.getText() + "7");
-
+                inputNo.setText(String.format("%s%s", inputNo.getText(), getString(R.string.seven)));
             }
         });
 
         button8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                inputNo.setText(inputNo.getText() + "8");
+                inputNo.setText(String.format("%s8", inputNo.getText()));
 
             }
         });
@@ -127,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
         button9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                inputNo.setText(inputNo.getText() + "9");
+                inputNo.setText(String.format("%s9", inputNo.getText()));
 
             }
         });
@@ -135,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
         button0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                inputNo.setText(inputNo.getText() + "0");
+                inputNo.setText(String.format("%s0", inputNo.getText()));
 
             }
         });
@@ -153,153 +171,94 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String operationSym = operation.getText().toString();
 
+                if (inputNo.getText().toString().isEmpty() && finalRes.getText().toString().isEmpty() || inputNo.getText().toString().equals(".")) {
+                    Toast.makeText(MainActivity.this, "Input is missing", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 if (operationSym.equals("+")) {
-                    if(!first.getText().toString().isEmpty() && inputNo.getText().toString().isEmpty() && !finalRes.getText().toString().isEmpty())
-                    {
+                    if (!first.getText().toString().isEmpty() && inputNo.getText().toString().isEmpty() && !finalRes.getText().toString().isEmpty()) {
                         finalRes.setText(first.getText().toString());
-                        finalRes.setTypeface(null, Typeface.BOLD);
-                    }
-                    else {
+                        finalRes.setTypeface(null, Typeface.BOLD_ITALIC);
+                    } else {
                         String no_one = first.getText().toString();
                         String no_two = inputNo.getText().toString();
                         float number_one = Float.parseFloat(no_one);
                         float number_two = Float.parseFloat(no_two);
                         add = number_one + number_two;
-                        finalRes.setText(String.format("%.2f", add));
-                        finalRes.setTypeface(null, Typeface.BOLD);
+                        finalRes.setText(String.format(Locale.getDefault(), "%.2f", add));
+                        finalRes.setTypeface(null, Typeface.BOLD_ITALIC);
                         // first.setText(String.format("%.2f", add));
                         inputNo.setText("");
                         operation.setText("");
-
-                    }
+                        }
                 }
-
                 if (operationSym.equals("-")) {
-                    if(!first.getText().toString().isEmpty() && inputNo.getText().toString().isEmpty() && !finalRes.getText().toString().isEmpty())
-                    {
+                    if (!first.getText().toString().isEmpty() && inputNo.getText().toString().isEmpty() && !finalRes.getText().toString().isEmpty()) {
                         finalRes.setText(first.getText().toString());
-                        finalRes.setTypeface(null, Typeface.BOLD);
-                    }
-                    else {
+                        finalRes.setTypeface(null, Typeface.BOLD_ITALIC);
+                    } else {
                         String no_one = first.getText().toString();
                         String no_two = inputNo.getText().toString();
                         float number_one = Float.parseFloat(no_one);
                         float number_two = Float.parseFloat(no_two);
                         sub = number_one - number_two;
-                        finalRes.setText(String.format("%.2f", sub));
-                        finalRes.setTypeface(null, Typeface.BOLD);
+                        finalRes.setText(String.format(Locale.getDefault(), "%.2f", sub));
+                        finalRes.setTypeface(null, Typeface.BOLD_ITALIC);
                         // first.setText(String.format("%.2f", sub));
                         inputNo.setText("");
                         operation.setText("");
 
                     }
                 }
-               /* try
-                {
-                    String d = first.getText().toString();
-                    mValueThree = Float.parseFloat(d);
-                    finalRes.setText(String.format("%.2f", mValueThree));
-                }
-                catch (Exception e)
-                {
-
-                }
-
-                try {
-
-                    mValueTwo = Float.parseFloat(inputNo.getText() + "");
-                    operation.setText("");
-
-                    if (mAddition) {
-                        String a  = first.getText().toString();
-                        mValueThree = Float.parseFloat(a);
-                        String b  = inputNo.getText().toString();
-                        mValueTwo = Float.parseFloat(b);
-                        add = mValueThree + mValueTwo;
-                        finalRes.setText(String.format("%.2f", add));
-                        first.setText(String.format("%.2f", add));
+                if (operationSym.equals("x")) {
+                    if (!first.getText().toString().isEmpty() && inputNo.getText().toString().isEmpty() && !finalRes.getText().toString().isEmpty()) {
+                        finalRes.setText(first.getText().toString());
+                        finalRes.setTypeface(null, Typeface.BOLD_ITALIC);
+                    } else {
+                        String no_one = first.getText().toString();
+                        String no_two = inputNo.getText().toString();
+                        float number_one = Float.parseFloat(no_one);
+                        float number_two = Float.parseFloat(no_two);
+                        mul = number_one * number_two;
+                        finalRes.setText(String.format(Locale.getDefault(), "%.2f", mul));
+                        finalRes.setTypeface(null, Typeface.BOLD_ITALIC);
+                        // first.setText(String.format("%.2f", mul));
                         inputNo.setText("");
-                        mAddition = false;
+                        operation.setText("");
 
-                    } else if (mSubtract)
-                    {
-                        if(mValueThree != 0)
-                        {
-                            String a  = first.getText().toString();
-                            mValueThree = Float.parseFloat(a);
-                            String b  = inputNo.getText().toString();
-                            mValueTwo = Float.parseFloat(b);
-                            String c  = inputNo.getText().toString();
-                            mValueOne = Float.parseFloat(c);
-                            sub = mValueThree-mValueTwo;
-                            finalRes.setText(String.format("%.2f", sub));
-                            first.setText(String.format("%.2f", sub));
-                            inputNo.setText("");
-                            mSubtract = false;
-                        }
-                        else
-                        {
-                            sub = mValueOne - mValueTwo;
-                            finalRes.setText(String.format("%.2f", sub));
-                            first.setText(String.format("%.2f", sub));
-                            inputNo.setText("");
-                            mSubtract = false;
-
-                        }
-                    } else if (mMultiplication) {
-                        String a  = first.getText().toString();
-                        mValueThree = Float.parseFloat(a);
-                        String b  = inputNo.getText().toString();
-                        mValueTwo = Float.parseFloat(b);
-                        String c  = inputNo.getText().toString();
-                        mValueOne = Float.parseFloat(c);
-                        mul = mValueThree * mValueTwo;
-                        finalRes.setText(String.format("%.2f", mul));
-                        first.setText(String.format("%.2f", mul));
-                        inputNo.setText("");
-                        mMultiplication = false;
-                    } else if (mDivision) {
-                        if (mValueThree != 1) {
-                            String a = first.getText().toString();
-                            mValueThree = Float.parseFloat(a);
-                            String b = inputNo.getText().toString();
-                            mValueTwo = Float.parseFloat(b);
-                            String c = inputNo.getText().toString();
-                            mValueOne = Float.parseFloat(c);
-                            div = mValueThree / mValueTwo;
-                            finalRes.setText(String.format("%.2f", div));
-                            first.setText(String.format("%.2f", div));
-                            inputNo.setText("");
-                            mDivision = false;
-                        } else {
-                            String a = first.getText().toString();
-                            mValueThree = Float.parseFloat(a);
-                            String b = inputNo.getText().toString();
-                            mValueTwo = Float.parseFloat(b);
-                            String c = inputNo.getText().toString();
-                            mValueOne = Float.parseFloat(c);
-                            div = mValueOne / mValueTwo;
-                            finalRes.setText(String.format("%.2f", div));
-                            first.setText(String.format("%.2f", div));
-                            inputNo.setText("");
-                            mDivision = false;
-                        }
                     }
                 }
-                catch (Exception ignored)
-                {
-                    lastDot=true;
-                }*/
+
+                if (operationSym.equals("/")) {
+                    if (!first.getText().toString().isEmpty() && inputNo.getText().toString().isEmpty() && !finalRes.getText().toString().isEmpty()) {
+                        finalRes.setText(first.getText().toString());
+                        finalRes.setTypeface(null, Typeface.BOLD_ITALIC);
+                    } else {
+                        String no_one = first.getText().toString();
+                        String no_two = inputNo.getText().toString();
+                        float number_one = Float.parseFloat(no_one);
+                        float number_two = Float.parseFloat(no_two);
+                        div = number_one / number_two;
+                        finalRes.setText(String.format(Locale.getDefault(), "%.2f", div));
+                        finalRes.setTypeface(null, Typeface.BOLD_ITALIC);
+                        // first.setText(String.format("%.2f", sub));
+                        inputNo.setText("");
+                        operation.setText("");
+
+                    }
+                }
+
             }
         });
-
 
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 lastDot = false;
-                if ((!finalRes.getText().toString().isEmpty() && !first.getText().toString().isEmpty() && !inputNo.getText().toString().isEmpty())) {
+                if (inputNo.getText().toString().isEmpty() && finalRes.getText().toString().isEmpty()) {
+                    Toast.makeText(MainActivity.this, "Input something", Toast.LENGTH_SHORT).show();
+                } else if ((!finalRes.getText().toString().isEmpty() && !first.getText().toString().isEmpty() && !inputNo.getText().toString().isEmpty())) {
                     first.setText(finalRes.getText().toString());
                     String no_one = first.getText().toString();
                     String no_two = inputNo.getText().toString();
@@ -307,8 +266,8 @@ public class MainActivity extends AppCompatActivity {
                     float number_two = Float.parseFloat(no_two);
                     add = number_one + number_two;
                     finalRes.setTypeface(null, Typeface.NORMAL);
-                    finalRes.setText(String.format("%.2f", add));
-                    first.setText(String.format("%.2f", add));
+                    finalRes.setText(String.format(Locale.getDefault(), "%.2f", add));
+                    first.setText(String.format(Locale.getDefault(), "%.2f", add));
                     inputNo.setText("");
 
                 } else if (finalRes.getText().toString().equals("") && first.getText().toString().equals("")) {
@@ -323,8 +282,8 @@ public class MainActivity extends AppCompatActivity {
                     float number_two = Float.parseFloat(no_two);
                     add = number_one + number_two;
                     finalRes.setTypeface(null, Typeface.NORMAL);
-                    finalRes.setText(String.format("%.2f", add));
-                    first.setText(String.format("%.2f", add));
+                    finalRes.setText(String.format(Locale.getDefault(), "%.2f", add));
+                    first.setText(String.format(Locale.getDefault(), "%.2f", add));
                     inputNo.setText("");
                 } else {
                     operation.setText("+");
@@ -338,7 +297,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 lastDot = false;
-                if ((!finalRes.getText().toString().isEmpty() && !first.getText().toString().isEmpty() && !inputNo.getText().toString().isEmpty())) {
+                if (inputNo.getText().toString().isEmpty() && finalRes.getText().toString().isEmpty()) {
+                    Toast.makeText(MainActivity.this, "Input something", Toast.LENGTH_SHORT).show();
+                } else if ((!finalRes.getText().toString().isEmpty() && !first.getText().toString().isEmpty() &&
+                        !inputNo.getText().toString().isEmpty())) {
                     first.setText(finalRes.getText().toString());
                     String no_one = first.getText().toString();
                     String no_two = inputNo.getText().toString();
@@ -346,8 +308,8 @@ public class MainActivity extends AppCompatActivity {
                     float number_two = Float.parseFloat(no_two);
                     sub = number_one - number_two;
                     finalRes.setTypeface(null, Typeface.NORMAL);
-                    finalRes.setText(String.format("%.2f", sub));
-                    first.setText(String.format("%.2f", sub));
+                    finalRes.setText(String.format(Locale.getDefault(), "%.2f", sub));
+                    first.setText(String.format(Locale.getDefault(), "%.2f", sub));
                     inputNo.setText("");
 
                 } else if (finalRes.getText().toString().equals("") && first.getText().toString().equals("")) {
@@ -362,8 +324,8 @@ public class MainActivity extends AppCompatActivity {
                     float number_two = Float.parseFloat(no_two);
                     sub = number_one - number_two;
                     finalRes.setTypeface(null, Typeface.NORMAL);
-                    finalRes.setText(String.format("%.2f", sub));
-                    first.setText(String.format("%.2f", sub));
+                    finalRes.setText(String.format(Locale.getDefault(), "%.2f", sub));
+                    first.setText(String.format(Locale.getDefault(), "%.2f", sub));
                     inputNo.setText("");
                 } else {
                     operation.setText("-");
@@ -378,115 +340,111 @@ public class MainActivity extends AppCompatActivity {
         {
             @Override
             public void onClick(View v) {
-                try {
-                    finalRes.getText().clear();
-                    finalRes.setText("");
-                    operation.setText("");
+                lastDot = false;
+                if (inputNo.getText().toString().isEmpty() && finalRes.getText().toString().isEmpty()) {
+                    Toast.makeText(MainActivity.this, "Input something", Toast.LENGTH_SHORT).show();
+                } else if ((!finalRes.getText().toString().isEmpty() && !first.getText().toString().isEmpty() && !inputNo.getText().toString().isEmpty())) {
+                    first.setText(finalRes.getText().toString());
+                    String no_one = first.getText().toString();
+                    String no_two = inputNo.getText().toString();
+                    float number_one = Float.parseFloat(no_one);
+                    float number_two = Float.parseFloat(no_two);
+                    mul = number_one * number_two;
+                    finalRes.setTypeface(null, Typeface.NORMAL);
+                    finalRes.setText(String.format(Locale.getDefault(), "%.2f", mul));
+                    first.setText(String.format(Locale.getDefault(), "%.2f", mul));
+                    inputNo.setText("");
 
-                    String a = inputNo.getText().toString();
-                    lastDot = false;
-
-                    if (first.getText().toString().isEmpty()) {
-                        mValueThree = 1;
-                        mValueOne = Float.parseFloat(a);
-                        result = mValueOne;
-                        first.setText(String.format("%.2f", result));
-                        inputNo.setText(null);
-                        operation.setText("x");
-                        mMultiplication = true;
-                        mAddition = false;
-                        mDivision = false;
-                        mSubtract = false;
-                        ;
-
-                    } else {
-                        String b = first.getText().toString();
-                        mValueThree = Float.parseFloat(b);
-                        mValueOne = Float.parseFloat(a);
-                        result = mValueThree * mValueOne;
-                        first.setText(String.format("%.2f", result));
-                        inputNo.setText(null);
-                        operation.setText("x");
-                        mMultiplication = true;
-                        mAddition = false;
-                        mDivision = false;
-                        mSubtract = false;
-                        ;
-
-                    }
-
-                } catch (Exception ignored) {
+                } else if (finalRes.getText().toString().equals("") && first.getText().toString().equals("")) {
+                    String input = inputNo.getText().toString();
+                    inputNo.setText("");
+                    first.setText(input);
+                    operation.setText("x");
+                } else if (finalRes.getText().toString().equals("")) {
+                    String no_one = first.getText().toString();
+                    String no_two = inputNo.getText().toString();
+                    float number_one = Float.parseFloat(no_one);
+                    float number_two = Float.parseFloat(no_two);
+                    mul = number_one * number_two;
+                    finalRes.setTypeface(null, Typeface.NORMAL);
+                    finalRes.setText(String.format(Locale.getDefault(), "%.2f", mul));
+                    first.setText(String.format(Locale.getDefault(), "%.2f", mul));
+                    inputNo.setText("");
+                } else {
+                    operation.setText("x");
+                    inputNo.setText("");
+                    first.setText(finalRes.getText().toString());
                 }
+
             }
         });
+
 
         buttonDivision.setOnClickListener(new View.OnClickListener() {//correct
             @Override
             public void onClick(View v) {
-                try {
-                    finalRes.getText().clear();
-                    finalRes.setText("");
-                    operation.setText("");
+                lastDot = false;
+                if (inputNo.getText().toString().isEmpty() && finalRes.getText().toString().isEmpty()) {
+                    Toast.makeText(MainActivity.this, "Input something", Toast.LENGTH_SHORT).show();
+                } else if ((!finalRes.getText().toString().isEmpty() && !first.getText().toString().isEmpty() && !inputNo.getText().toString().isEmpty())) {
+                    first.setText(finalRes.getText().toString());
+                    String no_one = first.getText().toString();
+                    String no_two = inputNo.getText().toString();
+                    float number_one = Float.parseFloat(no_one);
+                    float number_two = Float.parseFloat(no_two);
+                    div = number_one / number_two;
+                    finalRes.setTypeface(null, Typeface.NORMAL);
+                    finalRes.setText(String.format(Locale.getDefault(), "%.2f", div));
+                    first.setText(String.format(Locale.getDefault(), "%.2f", div));
+                    inputNo.setText("");
 
-                    String a = inputNo.getText().toString();
-                    lastDot = false;
-                    if (first.getText().toString().isEmpty()) {
-                        mValueThree = 1;
-                        mValueOne = Float.parseFloat(a);
-                        result = mValueOne;
-                        first.setText(String.format("%.2f", result));
-                        inputNo.setText(null);
-                        operation.setText("÷");
-                        mDivision = true;
-                        mAddition = false;
-                        mSubtract = false;
-                        mMultiplication = false;
-                        ;
-                    } else {
-                        String b = first.getText().toString();
-                        mValueThree = Float.parseFloat(b);
-                        mValueOne = Float.parseFloat(a);
-                        result = mValueThree / mValueOne;
-                        first.setText(String.format("%.2f", result));
-                        inputNo.setText(null);
-                        operation.setText("÷");
-                        mDivision = true;
-                        mAddition = false;
-                        mSubtract = false;
-                        mMultiplication = false;
-                        ;
-                    }
-                } catch (Exception ignored) {
-
+                } else if (finalRes.getText().toString().equals("") && first.getText().toString().equals("")) {
+                    String input = inputNo.getText().toString();
+                    inputNo.setText("");
+                    first.setText(input);
+                    operation.setText("/");
+                } else if (finalRes.getText().toString().equals("")) {
+                    String no_one = first.getText().toString();
+                    String no_two = inputNo.getText().toString();
+                    float number_one = Float.parseFloat(no_one);
+                    float number_two = Float.parseFloat(no_two);
+                    div = number_one / number_two;
+                    finalRes.setTypeface(null, Typeface.NORMAL);
+                    finalRes.setText(String.format(Locale.getDefault(), "%.2f", div));
+                    first.setText(String.format(Locale.getDefault(), "%.2f", div));
+                    inputNo.setText("");
+                } else {
+                    operation.setText("/");
+                    inputNo.setText("");
+                    first.setText(finalRes.getText().toString());
                 }
+
             }
         });
     }
 
     private void initUI() {
-        button0 = (Button) findViewById(R.id.button0);
-        button1 = (Button) findViewById(R.id.button1);
-        button2 = (Button) findViewById(R.id.button2);
-        button3 = (Button) findViewById(R.id.button3);
-        button4 = (Button) findViewById(R.id.button4);
-        button5 = (Button) findViewById(R.id.button5);
-        button6 = (Button) findViewById(R.id.button6);
-        button7 = (Button) findViewById(R.id.button7);
-        button8 = (Button) findViewById(R.id.button8);
-        button9 = (Button) findViewById(R.id.button9);
-        button10 = (Button) findViewById(R.id.button10);
-        buttonAdd = (Button) findViewById(R.id.buttonadd);
-        buttonSub = (Button) findViewById(R.id.buttonsub);
-        buttonMul = (Button) findViewById(R.id.buttonmul);
-        buttonDivision = (Button) findViewById(R.id.buttondiv);
-        buttonEqual = (Button) findViewById(R.id.buttoneql);
-        ImageButton back = (ImageButton) findViewById(R.id.back);
-        inputNo = (EditText) findViewById(R.id.input);
-        finalRes = (EditText) findViewById(R.id.finalResult);
-        first = (EditText) findViewById(R.id.first);
-        operation = (EditText) findViewById(R.id.operation);
-        drawer_list = (ListView) findViewById(R.id.drawer_list);
-        back = findViewById(R.id.back);
+        button0 = findViewById(R.id.button0);
+        button1 = findViewById(R.id.button1);
+        button2 = findViewById(R.id.button2);
+        button3 = findViewById(R.id.button3);
+        button4 = findViewById(R.id.button4);
+        button5 = findViewById(R.id.button5);
+        button6 = findViewById(R.id.button6);
+        button7 = findViewById(R.id.button7);
+        button8 = findViewById(R.id.button8);
+        button9 = findViewById(R.id.button9);
+        button10 = findViewById(R.id.button10);
+        buttonAdd = findViewById(R.id.buttonadd);
+        buttonSub = findViewById(R.id.buttonsub);
+        buttonMul = findViewById(R.id.buttonmul);
+        buttonDivision = findViewById(R.id.buttondiv);
+        buttonEqual = findViewById(R.id.buttoneql);
+        inputNo = findViewById(R.id.input);
+        finalRes = findViewById(R.id.finalResult);
+        first = findViewById(R.id.first);
+        operation = findViewById(R.id.operation);
+        drawer_list = findViewById(R.id.drawer_list);
     }
 
     public void showShowCaseView() {
@@ -525,26 +483,33 @@ public class MainActivity extends AppCompatActivity {
     public void squ(View view)
 
     {
-        finalRes.getText().clear();
-        finalRes.setText("");
-        try {
+        if (finalRes.getText().toString().isEmpty()) {
+            try {
+                operation.setText("");
+                lastDot = false;
+                String a = inputNo.getText().toString();
+                mValueOne = Float.parseFloat(a);
 
-            operation.setText("x²");
-            lastDot = false;
+                mValueThree = mValueOne * mValueOne;
+                inputNo.setText(String.format("%s²", inputNo.getText()));
+                finalRes.setText(String.format(Locale.getDefault(), "%.2f", mValueThree));
+            } catch (Exception ex) {
+
+                Log.d("---", ex.getMessage());
+            }
+        } else {
+            inputNo.setText(finalRes.getText());
             String a = inputNo.getText().toString();
             mValueOne = Float.parseFloat(a);
 
             mValueThree = mValueOne * mValueOne;
-            finalRes.setText(String.format("%.2f", mValueThree));
-            first.setText(String.format("%.2f", mValueThree));
-        } catch (Exception ex) {
-
+            inputNo.setText(String.format("%s²", inputNo.getText()));
+            finalRes.setText(String.format(Locale.getDefault(), "%.2f", mValueThree));
         }
     }
 
 
-    public void clear(View view)//correct
-    {
+    public void clear(View view) {
         first.getText().clear();
         lastDot = false;
         first.setHint("");
@@ -552,37 +517,39 @@ public class MainActivity extends AppCompatActivity {
         operation.setHint("");
         inputNo.getText().clear();
         finalRes.getText().clear();
-        display = "";
-        String display1 = "";
+
     }
 
-    public void back(View v) {//correct
+    public void back(View v) {
         lastDot = false;
         String textInBox = inputNo.getText().toString();
         if (inputNo.length() > 0) {
             String newText = textInBox.substring(0, textInBox.length() - 1);
-            // Update edit text
             inputNo.setText(newText);
-            display = inputNo.getText().toString();
         }
     }
 
     public void cubeRoot(View view) {
         {
-            finalRes.getText().clear();
-            finalRes.setText("");
-            try {
+            if (inputNo.getText().toString().isEmpty() && finalRes.getText().toString().isEmpty()) {
+                Toast.makeText(MainActivity.this, "Input something", Toast.LENGTH_SHORT).show();
+            } else if (finalRes.getText().toString().isEmpty()) {
+                operation.setText("");
                 lastDot = false;
                 String a = inputNo.getText().toString();
                 mValueOne = Float.parseFloat(a);
-                mValueThree = (float) Math.sqrt(mValueOne);
-/*
-                mValueThree = mValueOne * mValueOne * mValueOne;
-*/
-                finalRes.setText(String.format("%.2f", mValueThree));
-                first.setText(String.format("%.2f", mValueThree));
-            } catch (Exception ex) {
 
+                mValueThree = (float) Math.sqrt(mValueOne);
+                inputNo.setText(String.format("√%s", inputNo.getText()));
+                finalRes.setText(String.format(Locale.getDefault(), "%.2f", mValueThree));
+            } else {
+                inputNo.setText(finalRes.getText());
+                String a = inputNo.getText().toString();
+                mValueOne = Float.parseFloat(a);
+
+                mValueThree = (float) Math.sqrt(mValueOne);
+                inputNo.setText(String.format("√%s", inputNo.getText()));
+                finalRes.setText(String.format(Locale.getDefault(), "%.2f", mValueThree));
             }
         }
 
